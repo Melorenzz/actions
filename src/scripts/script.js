@@ -1,0 +1,1 @@
+console.log('ScRiPt FoR aLl PaGeS')
