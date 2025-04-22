@@ -14,3 +14,21 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      - name: Build Project
+        run: npm run build
+
+      - name: Archive build
+        run: |
+          mkdir -p .temp
+          tar -czf .temp/project-build.tar.gz build
+      
+      - name: Upload files via SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ env.HOST }}
+          username: ${{ env.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          source: .temp/project-build.tar.gz
+          target: ~/htdocs/misha.swit.vn.ua
+          strip_components: 1
